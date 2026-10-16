@@ -61,7 +61,7 @@ function cargarHistorialDeStorage() {
     else historialDia = [];
   } catch(e) { historialDia = []; }
 }
-1
+
 function guardarHistorial() {
   const hoy = new Date().toISOString().slice(0, 10);
   localStorage.setItem('tf_historial_' + claveModo() + '_' + hoy, JSON.stringify(historialDia));

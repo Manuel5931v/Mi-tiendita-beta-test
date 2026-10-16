@@ -126,8 +126,8 @@ function previsualizarFoto(event) {
   const archivo = event.target.files[0];
   if (!archivo) return;
 
-  if (archivo.size > 2 * 1024 * 1024) {
-    toast('La imagen es muy grande. Máx. 2 MB.', 'aviso');
+  if (archivo.size > 15 * 1024 * 1024) {
+    toast('La imagen es muy grande. Máx. 15 MB.', 'aviso');
     event.target.value = '';
     return;
   }
@@ -199,6 +199,7 @@ function abrirModalProducto(id = null) {
     aplicarFotoEnZona(null);
   }
 
+  resetOpcionesAdicionales();
   document.getElementById('modalOverlay').classList.add('visible');
 }
 
@@ -208,6 +209,24 @@ function cerrarModal() {
 
 function cerrarModalSiOverlay(e) {
   if (e.target === document.getElementById('modalOverlay')) cerrarModal();
+}
+
+function toggleOpcionesAdicionales() {
+  const bloque = document.getElementById('bloqueOpcionesAdicionales');
+  const btn = document.getElementById('btnOpcionesAdicionales');
+  const abierto = bloque.hasAttribute('hidden');
+  if (abierto) bloque.removeAttribute('hidden'); else bloque.setAttribute('hidden', '');
+  btn.setAttribute('aria-expanded', String(abierto));
+  btn.textContent = abierto ? 'Ocultar opciones ▲' : 'Ver más opciones ▼';
+}
+
+function resetOpcionesAdicionales() {
+  const bloque = document.getElementById('bloqueOpcionesAdicionales');
+  const btn = document.getElementById('btnOpcionesAdicionales');
+  if (!bloque || !btn) return;
+  bloque.setAttribute('hidden', '');
+  btn.setAttribute('aria-expanded', 'false');
+  btn.textContent = 'Ver más opciones ▼';
 }
 
 function guardarProducto(e) {
